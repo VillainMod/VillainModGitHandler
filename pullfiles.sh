@@ -94,23 +94,32 @@ IS_REPO_ADMIN="1"
 
 printf "Welcome to the VillainMod Git Handler\n"
 printf "Current Directory:\n$PWD\n\n"
-printf "Create working directory here? [Y/n]: "
 
-read confirm_dir_create
 
-shopt -s nocasematch
+if [[ ! -d VillainMod ]]
 
-if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" ]] 
 then
-  printf "\nCreating directory 'VillainMod'...\n"
-  if [[ -d VillainMod ]]
+
+  printf "Create working directory here? [Y/n]: "
+  read confirm_dir_create
+  shopt -s nocasematch
+
+  if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" ]] 
   then
-    printf "Cannot create directory: already present!\n"
-    # TO DO: do something if the dir is already present
-  else
+    printf "\nCreating directory 'VillainMod'...\n"
     mkdir "$PWD/$DEF_DIR"
   fi
-fi
+  
+  shopt -u nocasematch
+  
+else
+
+  printf "Found working directory 'VillainMod'!\n"
+  # TO DO: do something if the dir is already present
+
+fi    
+
+
 
 if [[ -n "$1" ]]
 # Test whether command-line argument is present (non-empty).
