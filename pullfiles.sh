@@ -4,7 +4,24 @@
 # function to actually sync our local repositories with the remote ones, without losing any untracked changes (COUGH REPO)
 fetch_remotes()
 {
+    # for each subfolder, decide if it is a valid git repository
+    for folder in *
+    do
+        cd ${folder}
+        if [ -d ${folder}/.git ]
+        then
+            # TODO if uncommitted changes exist, stash them
+            
+            # appears there is a valid git repository here - let's sync
+            git fetch origin
+            # TODO and now let's merge the upstream changes with any local ones, without losing data
+            
+        else
+        
+        fi
+            
 
+    done
 }
 
 DEF_DIR="VillainMod"
