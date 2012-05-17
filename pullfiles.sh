@@ -8,18 +8,18 @@ fetch_remotes()
     for folder in *
     do
         cd ${folder}
-        if [ -d ${folder}/.git ]
+        if [[ -d ${folder}/.git ]]
         then
             # if uncommitted changes exist, stash them
             changes=0
             # detect changes to existing files
             git diff --no-ext-diff --quiet --exit-code || changes=1
             # if no changed files, did they add any more?
-            if [ $changes = 0 ]; then
+            if [[ $changes = 0 ]]; then
                 changes=`git ls-files --exclude-standard --others| wc -l`
             fi
             # if changes = 1, then stuff needs stashed as a backup
-            if [ $changes = 1 ]
+            if [[ $changes = 1 ]]
             then
                 printf "Changes found in local repository, ${folder} - stashing as backup, then automatically merging with upstream\n"
                 git stash
