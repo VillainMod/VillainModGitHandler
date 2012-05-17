@@ -21,9 +21,11 @@ fetch_remotes()
             # if changes = 1, then stuff needs stashed as a backup
             if [ $changes = 1 ]
             then
+                printf "Changes found in local repository, ${folder} - stashing as backup, then automatically merging with upstream\n"
                 git stash
                 changes=0
             else
+                printf "No changes to be stashed. Proceeding to fetch and merge\n"
                 changes=0
             fi
             
