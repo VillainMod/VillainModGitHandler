@@ -1,0 +1,8 @@
+VillainMod Git Handler Script
+
+(c) VillainROM 2012 All Rights Reserved
+
+*About*
+
+When obtaining and updating the sources for Android, the repo python script is typically used. This script can prove unreliable when working with branches within the individual git repositories that make up the Android system. In order to alleviate this, this script aims to provide similar functionality without the need to use repo. 
+
