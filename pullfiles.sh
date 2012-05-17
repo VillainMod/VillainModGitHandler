@@ -1,6 +1,12 @@
 #!/bin/bash
 #VillainMod Git Handler
 
+# function to actually sync our local repositories with the remote ones, without losing any untracked changes (COUGH REPO)
+fetch_remotes()
+{
+
+}
+
 DEF_DIR = "VillainMod"
 
 echo "Welcome to the VillainMod Git Handler"
