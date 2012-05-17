@@ -1,0 +1,17 @@
+VillainMod Git Handler Script
+
+(c) VillainROM 2012 All Rights Reserved
+
+*About*
+
+When obtaining and updating the sources for Android, the repo python script is typically used. This script can prove unreliable when working with branches within the individual git repositories that make up the Android system. In order to alleviate this, this script aims to provide similar functionality without the need to use repo. 
+
+*Syncing*
+
+1) Read the list of git repositories to sync from the script or a separate file (like manifest.xml in repo)
+
+2) For each repository listed, check if it exists already in the tree. If so, identify the active branch (locally)
+
+3) For each repository, carry out a git fetch from its origin, then "git merge origin/master", where master is the remote branch being followed. This ensures the user's changes are not lost, and also that their sources are not getting out of date!
+
+4) If merge errors occur, users can fix them per git's usual method, and commit manually (instructions are given by git if an error occurs)
