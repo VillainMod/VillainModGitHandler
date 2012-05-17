@@ -7,7 +7,11 @@ fetch_remotes()
 
 }
 
+<<<<<<< HEAD
 DEF_DIR="VillainMod"
+=======
+
+>>>>>>> 85685f79b46d51fd81c164bfd01aab19e9457ffa
 
 printf "Welcome to the VillainMod Git Handler\n"
 printf "Current Directory:\n$PWD\n\n"
@@ -19,6 +23,7 @@ shopt -s nocasematch
 
 if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" ]] 
 then
+<<<<<<< HEAD
   printf "\nCreating directory 'VillainMod'...\n"
   if [[ -d VillainMod ]]
   then
@@ -27,6 +32,17 @@ then
   else
     mkdir "$PWD/$DEF_DIR"
   fi
+=======
+  echo "Creating directory 'VillainMod'"
+  mkdir -p "VillainMod"
+elif [ "$confirm_dir_create" == "n" ]
+  echo "Type the path to the directory you would like to work from"
+  read working_dir
+  cd "$working_dir"
+elif [ "$confirm_dir_create" == "" ]
+  echo "Creating directory VillainMod"
+  mkdir -p "VillainMod"
+>>>>>>> 85685f79b46d51fd81c164bfd01aab19e9457ffa
 fi
 
 if [[ -n "$1" ]]
