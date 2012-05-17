@@ -7,18 +7,26 @@ fetch_remotes()
 
 }
 
-DEF_DIR = "VillainMod"
+DEF_DIR="VillainMod"
 
-echo "Welcome to the VillainMod Git Handler"
-echo "Current Directory: "$PWD
-echo "Create working directory here? [Y/n]:"
+printf "Welcome to the VillainMod Git Handler\n"
+printf "Current Directory:\n$PWD\n\n"
+printf "Create working directory here? [Y/n]: "
 
 read confirm_dir_create
 
-if [ "$confirm_dir_create" == "Y" ] 
+shopt -s nocasematch
+
+if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" ]] 
 then
-  echo "Creating directory 'VillainMod'"
-  mkdir "$PWD/$DEF_DIR"
+  printf "\nCreating directory 'VillainMod'...\n"
+  if [[ -d VillainMod ]]
+  then
+    printf "Cannot create directory: already present!\n"
+    # TO DO: do something if the dir is already present
+  else
+    mkdir "$PWD/$DEF_DIR"
+  fi
 fi
 
 if [[ -n "$1" ]]
