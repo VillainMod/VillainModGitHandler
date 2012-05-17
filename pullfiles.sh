@@ -1,6 +1,20 @@
 #!/bin/bash
 #VillainMod Git Handler
 
+# detect changes to a given git repo
+detect_changes()
+{
+    changes=0
+    # detect changes to existing files
+    git diff --no-ext-diff --quiet --exit-code || changes=1
+    # if no changed files, did they add any more?
+    if [[ $changes = 0 ]]; then
+        changes=`git ls-files --exclude-standard --others| wc -l`
+    fi
+    # now look at changes variable to see if changes exist
+
+}
+
 # function to actually sync our local repositories with the remote ones, without losing any untracked changes (COUGH REPO)
 fetch_remotes()
 {
@@ -10,21 +24,8 @@ fetch_remotes()
         cd ${folder}
         if [[ -d ${folder}/.git ]]
         then
-            # if uncommitted changes exist, stash them
             changes=0
-            # detect changes to existing files
-            git diff --no-ext-diff --quiet --exit-code || changes=1
-            # if no changed files, did they add any more?
-            if [[ $changes = 0 ]]; then
-                changes=`git ls-files --exclude-standard --others| wc -l`
-            fi
-            # if changes = 1, then stuff needs stashed as a backup
-            if [[ $changes = 1 ]]
-            then
-                printf "Changes found in local repository, ${folder} - stashing as backup, then automatically merging with upstream\n"
-                git stash
-            else
-            fi
+            detect_changes
             
             # sync sources and merge
             git fetch origin
@@ -44,7 +45,52 @@ fetch_remotes()
     done
 }
 
+push_changes() 
+{
+    # for each subfolder, decide if it is a valid git repository
+    for folder in *
+    do
+        cd ${folder}
+        if [[ -d ${folder}/.git ]]
+        then
+            changes=0
+            detect_changes
+            # now let's see if we should commit them
+            if [[ $changes = 1 ]]
+            then
+                # changes were made, let's ask the user if they want to push them
+                printf "Uncommitted changes detected, add all and commit? (this will add all new and changed files, ensure your .gitignore is set up correctly! [y/N]\n"
+                read want_to_commit
+                shopt -s nocasematch
+                if [[ "$want_to_commit" == "Y" ]] 
+                then
+                    # user wants to add and commit all changes
+                    git add .
+                    git commit
+                    # user will enter commit message and commit is now done
+                    
+                    # if user says they are allowed to push to the remote tree
+                    if [[ $IS_REPO_ADMIN = 1 ]]
+                    then
+                        printf "Push these changes now? [y/N]\n"
+                        read push_changes
+                        if [[ "$push_changes" == "Y" ]]
+                        then
+                        
+                            branch_name="$(git symbolic-ref HEAD 2>/dev/null)" || 
+                            branch_name="(unnamed branch)"     # detached HEAD
+                            branch_name=${branch_name##refs/heads/}
+                        
+                            git push origin $branch_name
+                        fi
+                    fi
+                fi
+            fi
+}
+
 DEF_DIR="VillainMod"
+# if the user has write access to push to the repo (this is self-selected by the user, it's not a security feature, just enables push features)
+IS_REPO_ADMIN="1"
 
 printf "Welcome to the VillainMod Git Handler\n"
 printf "Current Directory:\n$PWD\n\n"
