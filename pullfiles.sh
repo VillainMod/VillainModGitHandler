@@ -1,7 +1,6 @@
 #!/bin/bash
 #VillainMod Git Handler
 
-DEF_DIR = "VillainMod"
 
 echo "Welcome to the VillainMod Git Handler"
 echo "Current Directory: "$PWD
@@ -12,7 +11,14 @@ read confirm_dir_create
 if [ "$confirm_dir_create" == "Y" ] 
 then
   echo "Creating directory 'VillainMod'"
-  mkdir "$PWD/$DEF_DIR"
+  mkdir -p "VillainMod"
+elif [ "$confirm_dir_create" == "n" ]
+  echo "Type the path to the directory you would like to work from"
+  read working_dir
+  cd "$working_dir"
+elif [ "$confirm_dir_create" == "" ]
+  echo "Creating directory VillainMod"
+  mkdir -p "VillainMod"
 fi
 
 if [ -n "$1" ]
