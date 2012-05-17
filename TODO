@@ -1,0 +1,5 @@
+TODO List:
+
+* Allow pushing changes to a defined Gerrit instance
+* Actually test the pull code (it's all untested)
+* Look for opportunities to add more features
