@@ -10,11 +10,25 @@ fetch_remotes()
         cd ${folder}
         if [ -d ${folder}/.git ]
         then
-            # TODO if uncommitted changes exist, stash them
+            # if uncommitted changes exist, stash them
+            changes=0
+            # detect changes to existing files
+            git diff --no-ext-diff --quiet --exit-code || changes=1
+            # if no changed files, did they add any more?
+            if [ $changes = 0 ]; then
+                changes=`git ls-files --exclude-standard --others| wc -l`
+            fi
+            # if changes = 1, then stuff needs stashed as a backup
+            if [ $changes = 1 ]
+            then
+                git stash
+                changes=0
+            else
+                changes=0
+            fi
             
-            # appears there is a valid git repository here - let's sync
             git fetch origin
-            # TODO and now let's merge the upstream changes with any local ones, without losing data
+            git merge origin/master
             
         else
         
