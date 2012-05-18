@@ -88,6 +88,56 @@ push_changes()
             fi
 }
 
+
+pull_selected_devices()
+{
+	printf "You can only pull device trees for devices VillainMod officially supports.\n"
+	printf "If you would like to build for an unsupported device, please pull the tree manually.\n"
+	printf "To get official support for your device, please submit a patch via gerrit.\n"
+	printf "Please select the manufacturer of your device:\n"
+	printf "1:  HTC\n"
+	printf "2:  Samsung\n"
+	printf "Type the corresponding number and press ENTER:\n"
+	read device_manufacturer
+	if [[ "$device_manufacturer" == "1" ]]
+	then
+		printf "Device Manufacturer: HTC"
+		printf "Please choose a device:\n"
+		#TODO: Add list of supported HTC devices.
+	elif [[ "$device_manufacturer" == "2" ]]
+	then
+		printf "Device Manufacturer: Samsung"
+		printf "Please choose a device:\n"
+		printf "1:  Galaxy S2\n"
+		printf "Type the corresponding number and press ENTER:\n"
+		read manufacturer_model
+		#TODO: Add pull code.
+	else
+		#TODO: Add stuff to do if input is unexpected.
+	fi
+}
+
+display_menu()
+{
+  printf "1: Sync local tree\n"
+  printf "2: Push local changes\n"
+  printf "3: Pull device trees\n"
+  printf "What would you like to do? [1-3]:\n"
+  read menu_choice
+  if [[ "$menu_choice" == "1" ]]
+  then
+    printf "Syncing local tree\n"
+  elif [[ "$menu_choice" == "2" ]]
+  then
+    printf "Gathering local changes\n"
+  elif [[ "$menu_choice" == "3" ]]
+    #TODO: Create function to ask for and pull wanted device trees.
+  else
+    printf "Please choose an option from [1-3]:\n"
+    read menu_choice
+  fi
+}
+
 DEF_DIR="VillainMod"
 # if the user has write access to push to the repo (this is self-selected by the user, it's not a security feature, just enables push features)
 IS_REPO_ADMIN="1"
@@ -102,8 +152,8 @@ then
 
   printf "Create working directory here? [Y/n]: "
   read confirm_dir_create
-  
-  if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" || "$confirm_dir_create" == "y" ]] 
+  shopt -s nocasematch
+  if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" ]] 
   then
     printf "\nCreating directory 'VillainMod'...\n"
     mkdir "$PWD/$DEF_DIR"
@@ -127,7 +177,6 @@ else
 
   printf "Found working directory 'VillainMod'!\n"
   # TO DO: do stuff if the dir is already present
-
 fi    
 
 
