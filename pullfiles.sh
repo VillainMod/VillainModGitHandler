@@ -99,8 +99,8 @@ device_selection()
 	
 	if [[ "$device_manufacturer" == "1" ]]
 	then
-		manu="htc"
 		printf "Device Manufacturer: HTC"
+		manu="htc"
 		printf "Please choose a device:\n"
 		#TODO: Add list of supported HTC devices.
 		#printf "1. device1"
@@ -109,6 +109,7 @@ device_selection()
 	elif [[ "$device_manufacturer" == "2" ]]
 	then
 		printf "Device Manufacturer: Samsung\n"
+		manu="samsung"
 		printf "Please choose a device:\n"
 		printf "1.  Galaxy S2\n"
 		printf "Type the corresponding number and press ENTER:\n"
