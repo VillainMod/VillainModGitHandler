@@ -112,6 +112,35 @@ pull_selected_devices()
 		printf "Type the corresponding number and press ENTER:\n"
 		read manufacturer_model
 		#TODO: Add pull code.
+		if [[ "$manufacturer_model" == "1" ]]
+		then
+			#Check device folder exists
+		        if [[ ! -d "device" ]]; then
+      				printf "Device directory does not exist!\n"
+				printf "Creating directory..\n"
+				mkdir -p "device"
+				cd "device"
+				if [[ ! -d "samsung" ]]; then
+					mkdir -p "samsung"
+					cd "samsung"
+					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+				else
+					cd "samsung"
+					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+				fi
+    			else
+				cd "device"
+				if [[ ! -d "samsung" ]]; then
+					mkdir -p "samsung"
+					cd "samsung"
+					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+				else
+					cd "samsung"
+					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+				fi
+			fi
+		fi
+				
 	else
 		#TODO: Add stuff to do if input is unexpected.
 	fi
