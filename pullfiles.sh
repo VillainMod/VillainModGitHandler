@@ -106,7 +106,7 @@ pull_selected_devices()
 		#TODO: Add list of supported HTC devices.
 	elif [[ "$device_manufacturer" == "2" ]]
 	then
-		printf "Device Manufacturer: Samsung"
+		printf "Device Manufacturer: Samsung\n"
 		printf "Please choose a device:\n"
 		printf "1:  Galaxy S2\n"
 		printf "Type the corresponding number and press ENTER:\n"
