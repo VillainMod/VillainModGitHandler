@@ -93,7 +93,7 @@ DEF_DIR="VillainMod"
 IS_REPO_ADMIN="1"
 
 printf "Welcome to the VillainMod Git Handler\n"
-printf "Current Directory:\n$PWD\n\n"
+printf "Current directory:\n$PWD\n\n"
 
 
 if [[ ! -d VillainMod ]]
@@ -102,20 +102,27 @@ then
 
   printf "Create working directory here? [Y/n]: "
   read confirm_dir_create
-  shopt -s nocasematch
-
-  if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" ]] 
+  
+  if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" || "$confirm_dir_create" == "y" ]] 
   then
     printf "\nCreating directory 'VillainMod'...\n"
     mkdir "$PWD/$DEF_DIR"
+  else
+    printf "Specify working directory:\n"
+    read alt_working
+    while [[ ! -d $alt_working ]]; do
+      printf "\nNo such directory! Specify working directory:\n"
+      read alt_working
+    done
+    cp $PWD/pullfiles.sh $alt_working
+    cd $alt_working
+    ./pullfiles.sh && exit 0
   fi
-  
-  shopt -u nocasematch
   
 else
 
   printf "Found working directory 'VillainMod'!\n"
-  # TO DO: do something if the dir is already present
+  # TO DO: do stuff if the dir is already present
 
 fi    
 
