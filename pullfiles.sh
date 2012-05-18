@@ -147,24 +147,33 @@ pull_selected_devices()
 
 display_menu()
 {
+while [[ "$menu_choice" != "X" || "$menu_choice" != "x" ]]; do
   printf "1: Sync local tree\n"
   printf "2: Push local changes\n"
   printf "3: Pull device trees\n"
+  printf "X: Type X to exit\n"
   printf "What would you like to do? [1-3]:\n"
+  shopt -s nocasematch
   read menu_choice
   if [[ "$menu_choice" == "1" ]]
   then
     printf "Syncing local tree\n"
+    fetch_remotes
   elif [[ "$menu_choice" == "2" ]]
   then
 	printf "Gathering local changes\n"
+	detect_changes
   elif [[ "$menu_choice" == "3" ]]
   then
 	pull_selected_devices
+  elif [[ "$menu_choice" == "X" || "$menu_choice" != "x" ]]
+  then
+	exit
   else
 	printf "What would you like to do? [1-3]:\n"
 	read menu_choice
   fi
+done
 }
 
 DEF_DIR="VillainMod"
