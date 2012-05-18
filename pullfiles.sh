@@ -9,6 +9,7 @@ detect_changes()
     git diff --no-ext-diff --quiet --exit-code || changes=1
     # if no changed files, did they add any more?
     if [[ $changes = 0 ]]; then
+	printf "No changes to commit"
         changes=`git ls-files --exclude-standard --others| wc -l`
     fi
     # now look at changes variable to see if changes exist
@@ -131,12 +132,22 @@ pull_selected_devices()
     		else
 				cd "device"
 				if [[ ! -d "samsung" ]]; then
+					printf "Sasmung directory does not exist!\n"
+					printf "Creating directory..\n"
 					mkdir -p "samsung"
 					cd "samsung"
-					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+					if [[ ! -d "android_device_samsung_galaxys2" ]]; then
+						git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+					else
+						printf "Directory already exists!\n"
+					fi
 				else
 					cd "samsung"
-					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+					if [[ ! -d "android_device_samsung_galaxys2" ]]; then
+						git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+					else
+						printf "Directory already exists!\n"
+					fi
 				fi
 			fi
 		fi
@@ -211,6 +222,8 @@ else
   printf "Found working directory 'VillainMod'!\n"
   # TO DO: do stuff if the dir is already present
   #call menu function
+  cd "VillainMod"
+  printf "Current directory:\n$PWD\n\n"
   display_menu
 fi    
 
