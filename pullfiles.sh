@@ -118,7 +118,7 @@ then
     cd $alt_working
     # Although the following line does what it's supposed to (start the
     # script in the new dir), the original script's process (in the old dir)
-    # will still be running and will exit.
+    # will still be running and will exit only when the "child" script exits.
     # Also opens up a door for scriptception.
     ./pullfiles.sh && exit 0
   fi
