@@ -116,40 +116,25 @@ pull_selected_devices()
 		if [[ "$manufacturer_model" == "1" ]]
 		then
 			#Check device folder exists
-			if [[ ! -d "device" ]]; then
-      			printf "Device directory does not exist!\n"
+			if [[ ! -d "device" ]]
+			then
+				printf "Device directory does not exist!\n"
 				printf "Creating directory..\n"
 				mkdir -p "device"
 				cd "device"
-				if [[ ! -d "samsung" ]]; then
-					mkdir -p "samsung"
-					cd "samsung"
-					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
-				else
-					cd "samsung"
-					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
-				fi
-    		else
+			else
 				cd "device"
-				if [[ ! -d "samsung" ]]; then
-					printf "Sasmung directory does not exist!\n"
-					printf "Creating directory..\n"
-					mkdir -p "samsung"
-					cd "samsung"
-					if [[ ! -d "android_device_samsung_galaxys2" ]]; then
-						git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
-					else
-						printf "Directory already exists!\n"
-					fi
-				else
-					cd "samsung"
-					if [[ ! -d "android_device_samsung_galaxys2" ]]; then
-						git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
-					else
-						printf "Directory already exists!\n"
-					fi
-				fi
 			fi
+			if [[ ! -d "samsung" ]]
+			then
+				printf "Samsung directory does not exist!\n"
+				printf "Creating directory..\n"
+				mkdir -p "samsung"
+				cd "samsung"
+			else
+				cd "samsung"
+			fi
+			git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
 		fi
 	#else
 		#TODO: Add stuff to do if input is unexpected.
