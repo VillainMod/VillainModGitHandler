@@ -181,8 +181,7 @@ then
 
   printf "Create working directory here? [Y/n]: "
   read confirm_dir_create
-  shopt -s nocasematch
-  if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" ]] 
+  if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" || "$confirm_dir_create" == "y" ]] 
   then
     printf "\nCreating directory 'VillainMod'...\n"
     mkdir "$PWD/$DEF_DIR"
