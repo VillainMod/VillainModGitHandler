@@ -158,7 +158,7 @@ display_menu()
   elif [[ "$menu_choice" == "2" ]]
   then
 	printf "Gathering local changes\n"
-  elif [[ "$menu_choice" == "3" ]] # Notice the negated condition!
+  elif [[ "$menu_choice" == "3" ]]
   then
 	pull_selected_devices
   else
