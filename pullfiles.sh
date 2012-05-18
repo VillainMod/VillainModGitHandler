@@ -38,10 +38,8 @@ fetch_remotes()
             fi
             
         #else
-        
+        #	something something
         fi
-            
-
     done
 }
 
@@ -127,8 +125,8 @@ pull_selected_devices()
 					cd "samsung"
 					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
 				else
-				cd "samsung"
-				git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+					cd "samsung"
+					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
 				fi
     		else
 				cd "device"
@@ -178,9 +176,7 @@ printf "Current directory:\n$PWD\n\n"
 
 
 if [[ ! -d VillainMod ]]
-
 then
-
   printf "Create working directory here? [Y/n]: "
   read confirm_dir_create
   if [[ "$confirm_dir_create" == "Y" || "$confirm_dir_create" == "" || "$confirm_dir_create" == "y" ]] 
@@ -202,9 +198,7 @@ then
     # Also opens up a door for scriptception.
     ./pullfiles.sh && exit 0
   fi
-  
 else
-
   printf "Found working directory 'VillainMod'!\n"
   # TO DO: do stuff if the dir is already present
 fi    
