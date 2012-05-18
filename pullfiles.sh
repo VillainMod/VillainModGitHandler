@@ -160,12 +160,12 @@ display_menu()
   elif [[ "$menu_choice" == "2" ]]
   then
 	printf "Gathering local changes\n"
-  elif [[ ! "$menu_choice" == "3" ]] # Notice the negated condition!
+  elif [[ "$menu_choice" == "3" ]] # Notice the negated condition!
   then
-	printf "Please choose an option from [1-3]:\n"
+	pull_selected_devices
+  else
+	printf "What would you like to do? [1-3]:\n"
 	read menu_choice
-  #else
-	#TODO: Create function to ask for and pull wanted device trees.
   fi
 }
 
@@ -204,9 +204,10 @@ then
   fi
   
 else
-
   printf "Found working directory 'VillainMod'!\n"
   # TO DO: do stuff if the dir is already present
+  #call menu function
+  display_menu
 fi    
 
 
