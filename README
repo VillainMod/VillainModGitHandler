@@ -15,3 +15,9 @@ When obtaining and updating the sources for Android, the repo python script is t
 3) For each repository, carry out a git fetch from its origin, then "git merge origin/master", where master is the remote branch being followed. This ensures the user's changes are not lost, and also that their sources are not getting out of date!
 
 4) If merge errors occur, users can fix them per git's usual method, and commit manually (instructions are given by git if an error occurs)
+
+*Init*
+
+Read in a file of repositories in the format
+
+path/to/folder/in/tree;git@github.com:VillainMod/Repository_Name.git;branch_name
