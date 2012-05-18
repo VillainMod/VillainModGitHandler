@@ -37,7 +37,7 @@ fetch_remotes()
                 git stash pop
             fi
             
-        else
+        #else
         
         fi
             
@@ -86,6 +86,8 @@ push_changes()
                     fi
                 fi
             fi
+        fi
+    done    
 }
 
 
@@ -115,8 +117,8 @@ pull_selected_devices()
 		if [[ "$manufacturer_model" == "1" ]]
 		then
 			#Check device folder exists
-		        if [[ ! -d "device" ]]; then
-      				printf "Device directory does not exist!\n"
+			if [[ ! -d "device" ]]; then
+      			printf "Device directory does not exist!\n"
 				printf "Creating directory..\n"
 				mkdir -p "device"
 				cd "device"
@@ -125,10 +127,10 @@ pull_selected_devices()
 					cd "samsung"
 					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
 				else
-					cd "samsung"
-					git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
+				cd "samsung"
+				git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
 				fi
-    			else
+    		else
 				cd "device"
 				if [[ ! -d "samsung" ]]; then
 					mkdir -p "samsung"
@@ -140,8 +142,7 @@ pull_selected_devices()
 				fi
 			fi
 		fi
-				
-	else
+	#else
 		#TODO: Add stuff to do if input is unexpected.
 	fi
 }
@@ -158,12 +159,13 @@ display_menu()
     printf "Syncing local tree\n"
   elif [[ "$menu_choice" == "2" ]]
   then
-    printf "Gathering local changes\n"
-  elif [[ "$menu_choice" == "3" ]]
-    #TODO: Create function to ask for and pull wanted device trees.
-  else
-    printf "Please choose an option from [1-3]:\n"
-    read menu_choice
+	printf "Gathering local changes\n"
+  elif [[ ! "$menu_choice" == "3" ]] # Notice the negated condition!
+  then
+	printf "Please choose an option from [1-3]:\n"
+	read menu_choice
+  #else
+	#TODO: Create function to ask for and pull wanted device trees.
   fi
 }
 
