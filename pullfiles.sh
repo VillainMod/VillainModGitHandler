@@ -89,56 +89,65 @@ push_changes()
     done    
 }
 
+device_selection()
+{
+	printf "Please select the manufacturer of your device:\n"
+	printf "1:  HTC\n"
+	printf "2:  Samsung\n"
+	printf "Type the corresponding number and press ENTER:\n"
+	read device_manufacturer
+	
+	if [[ "$device_manufacturer" == "1" ]]
+	then
+		manu="htc"
+		printf "Device Manufacturer: HTC"
+		printf "Please choose a device:\n"
+		#TODO: Add list of supported HTC devices.
+		#printf "1. device1"
+		#read manufacturer_model
+		#[[ "$manufacturer_model" == "1" ]] && device="device1"
+	elif [[ "$device_manufacturer" == "2" ]]
+	then
+		printf "Device Manufacturer: Samsung\n"
+		printf "Please choose a device:\n"
+		printf "1.  Galaxy S2\n"
+		printf "Type the corresponding number and press ENTER:\n"
+		read manufacturer_model
+		[[ "$manufacturer_model" == "1" ]] && device="galaxys2"
+	else
+		printf "\n\nInput a valid entry!"
+		device_selection
+	fi
+}
 
 pull_selected_devices()
 {
 	printf "You can only pull device trees for devices VillainMod officially supports.\n"
 	printf "If you would like to build for an unsupported device, please pull the tree manually.\n"
 	printf "To get official support for your device, please submit a patch via gerrit.\n"
-	printf "Please select the manufacturer of your device:\n"
-	printf "1:  HTC\n"
-	printf "2:  Samsung\n"
-	printf "Type the corresponding number and press ENTER:\n"
-	read device_manufacturer
-	if [[ "$device_manufacturer" == "1" ]]
+	device_selection
+	
+	#Check device folder exists
+	if [[ ! -d "device" ]]
 	then
-		printf "Device Manufacturer: HTC"
-		printf "Please choose a device:\n"
-		#TODO: Add list of supported HTC devices.
-	elif [[ "$device_manufacturer" == "2" ]]
-	then
-		printf "Device Manufacturer: Samsung\n"
-		printf "Please choose a device:\n"
-		printf "1:  Galaxy S2\n"
-		printf "Type the corresponding number and press ENTER:\n"
-		read manufacturer_model
-		#TODO: Add pull code.
-		if [[ "$manufacturer_model" == "1" ]]
-		then
-			#Check device folder exists
-			if [[ ! -d "device" ]]
-			then
-				printf "Device directory does not exist!\n"
-				printf "Creating directory..\n"
-				mkdir -p "device"
-				cd "device"
-			else
-				cd "device"
-			fi
-			if [[ ! -d "samsung" ]]
-			then
-				printf "Samsung directory does not exist!\n"
-				printf "Creating directory..\n"
-				mkdir -p "samsung"
-				cd "samsung"
-			else
-				cd "samsung"
-			fi
-			git clone "git@github.com:VillainMod/android_device_samsung_galaxys2.git"
-		fi
-	#else
-		#TODO: Add stuff to do if input is unexpected.
+		printf "Device directory does not exist!\n"
+		printf "Creating directory..\n"
+		mkdir -p "device"
+		cd "device"
+	else
+		cd "device"
 	fi
+	if [[ ! -d "$manu" ]]
+	then
+		printf "Samsung directory does not exist!\n"
+		printf "Creating directory..\n"
+		mkdir -p "$manu"
+		cd "$manu"
+	else
+		cd "$manu"
+	fi
+	git clone "git@github.com:VillainMod/android_device_"$manu"_"$device".git" "$device"
+
 }
 
 display_menu()
