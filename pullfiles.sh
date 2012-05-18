@@ -115,7 +115,7 @@ device_selection()
 		read manufacturer_model
 		[[ "$manufacturer_model" == "1" ]] && device="galaxys2"
 	else
-		printf "\n\nInput a valid entry!"
+		printf "\n\nInput a valid entry!\n\n"
 		device_selection
 	fi
 }
