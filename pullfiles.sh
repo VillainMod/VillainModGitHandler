@@ -1,6 +1,11 @@
 #!/bin/bash
 #VillainMod Git Handler
 
+if [[ ! $(which git) > /dev/null ]]; then
+   printf "\nCommand "git" not found! Please install git and run the script again.\n\n"
+   exit 0
+fi
+
 # detect changes to a given git repo
 detect_changes()
 {
