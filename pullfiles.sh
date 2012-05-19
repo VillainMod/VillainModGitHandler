@@ -1,10 +1,9 @@
 #!/bin/bash
 #VillainMod Git Handler
 
-if [[ ! $(which git) > /dev/null ]]; then
-   printf "\nCommand "git" not found! Please install git and run the script again.\n\n"
-   exit 0
-fi
+##################
+# FUNCTIONS BELOW
+##################
 
 # detect changes to a given git repo
 detect_changes()
@@ -254,14 +253,25 @@ while [[ "$menu_choice" != "X" || "$menu_choice" != "x" ]]; do
 done
 }
 
+##################
+# FUNCTIONS ABOVE
+##################
+
 DEF_DIR="VillainMod"
 # if the user has write access to push to the repo (this is self-selected by the user, it's not a security feature, just enables push features)
 IS_REPO_ADMIN="1"
 
 printf "Welcome to the VillainMod Git Handler\n"
+
+# Check for git
+if [[ ! $(which git) > /dev/null ]]; then
+   printf "\nCommand "git" not found! Please install git and run the script again.\n\n"
+   exit 0
+fi
+
 printf "Current directory:\n$PWD\n\n"
 
-
+# Set up working dir and display menu
 if [[ ! -d VillainMod ]]
 then
   printf "Create working directory here? [Y/n]: "
@@ -281,16 +291,9 @@ then
     done
     cp $PWD/pullfiles.sh $alt_working
     cd $alt_working
-    # Although the following line does what it's supposed to (start the
-    # script in the new dir), the original script's process (in the old dir)
-    # will still be running and will exit only when the "child" script exits.
-    # Also opens up a door for scriptception.
-    ./pullfiles.sh && exit 0
   fi
 else
   printf "Found working directory 'VillainMod'!\n"
-  # TO DO: do stuff if the dir is already present
-  #call menu function
   cd "VillainMod"
   printf "Current directory:\n$PWD\n\n"
   display_menu
