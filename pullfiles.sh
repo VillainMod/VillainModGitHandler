@@ -156,7 +156,7 @@ pull_selected_devices()
 	fi
 	if [[ ! -d "$manu" ]]
 	then
-		printf "Samsung directory does not exist!\n"
+		printf "$manu directory does not exist!\n"
 		printf "Creating directory..\n"
 		mkdir -p "$manu"
 		cd "$manu"
@@ -214,6 +214,8 @@ then
   then
     printf "\nCreating directory 'VillainMod'...\n"
     mkdir "$PWD/$DEF_DIR"
+    cd "VillainMod"
+    display_menu
   else
     printf "Specify working directory:\n"
     read alt_working
