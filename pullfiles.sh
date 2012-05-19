@@ -257,6 +257,14 @@ done
 # FUNCTIONS ABOVE
 ##################
 
+if [[ -n "$1" ]]
+# Test whether command-line argument is present (non-empty).
+then
+  lines=$1
+else  
+  lines=$LINES # Default, if not specified on command-line.
+fi
+
 DEF_DIR="VillainMod"
 # if the user has write access to push to the repo (this is self-selected by the user, it's not a security feature, just enables push features)
 IS_REPO_ADMIN="1"
@@ -294,18 +302,9 @@ then
   fi
 else
   printf "Found working directory 'VillainMod'!\n"
+  #cd into working dir
+  #start menu
   cd "VillainMod"
   printf "Current directory:\n$PWD\n\n"
   display_menu
-fi    
-
-
-
-if [[ -n "$1" ]]
-# Test whether command-line argument is present (non-empty).
-then
-  lines=$1
-else  
-  lines=$LINES # Default, if not specified on command-line.
-fi 
-
+fi
