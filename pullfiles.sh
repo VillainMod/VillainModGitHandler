@@ -94,6 +94,7 @@ device_selection()
 	printf "Please select the manufacturer of your device:\n"
 	printf "1:  HTC\n"
 	printf "2:  Samsung\n"
+	printf "3:  HP\n"
 	printf "Type the corresponding number and press ENTER:\n"
 	read device_manufacturer
 	
@@ -102,19 +103,34 @@ device_selection()
 		printf "Device Manufacturer: HTC"
 		manu="htc"
 		printf "Please choose a device:\n"
-		#TODO: Add list of supported HTC devices.
-		#printf "1. device1"
-		#read manufacturer_model
-		#[[ "$manufacturer_model" == "1" ]] && device="device1"
+		printf "1. EVO 3D\n"
+		printf "2: Sensation\n"
+		printf "Type the corresponding number and press ENTER:\n"
+		read manufacturer_model
+		[[ "$manufacturer_model" == "1" ]] && device="shooteru"
+		[[ "$manufacturer_model" == "2" ]] && device="pyramid"
 	elif [[ "$device_manufacturer" == "2" ]]
 	then
 		printf "Device Manufacturer: Samsung\n"
 		manu="samsung"
 		printf "Please choose a device:\n"
 		printf "1.  Galaxy S2\n"
+		printf "2:  Galaxy Nexus\n"
+		printf "3:  Nexus S\n"
 		printf "Type the corresponding number and press ENTER:\n"
 		read manufacturer_model
 		[[ "$manufacturer_model" == "1" ]] && device="galaxys2"
+		[[ "$manufacturer_model" == "2" ]] && device="maguro"
+		[[ "$manufacturer_model" == "3" ]] && device="crespo"
+	elif [[ "$device_manufacturer" == "3" ]]
+	then
+		printf "Device Manufacturer: HP\n"
+		manu="hp"
+		printf "Please choose a device:\n"
+		printf "1:  Touchpad\n"
+		printf "Type the corresponding number and press ENTER:\n"
+		read manufacturer_model
+		[[ "$manufacturer_model" == "1" ]] && device="tenderloin"
 	else
 		printf "\n\nInput a valid entry!\n\n"
 		device_selection
