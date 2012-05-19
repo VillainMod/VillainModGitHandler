@@ -172,14 +172,62 @@ pull_selected_devices()
 
 }
 
+submit_gerrit_patch()
+{
+	printf "Please type the path of the directory you have made your changes in and press ENTER:\n"
+	read change_dir
+	while [[ ! -d "$change_dir" ]]; do
+      		printf "\nNo such directory! Specify directory changes have been made in:\n"
+		shopt -s nocasematch
+      		read change_dir
+	done
+	cd "$change_dir"
+	printf "\n\nCurrentDirectory: $PWD\n"
+	printf "Is this the direcory you have made your changes in?\n"
+	printf "Y/n:\n"
+	read confirm_dir
+	shopt -s nocasematch
+	if [[ "$confirm_dir" == "Y" ]] 
+	then
+		printf "Gathering local changes..\n\n"
+		check_for_changes
+	elif [[ "$confirm_dir" == "n" ]]
+	then
+		printf "Would you like to switch directories?"
+		printf "Y/n:\n"
+	else
+		printf "Gathering local changes..\n\n"
+		check_for_changes
+	fi
+}
+
+check_for_changes()
+{
+    for folder in *
+    do
+        cd ${folder}
+        if [[ -d ${folder}/.git ]]
+        then
+            changes=0
+            detect_changes
+            # now let's see if we should commit them
+            if [[ $changes = 1 ]]
+            then
+		printf "Changes detected!"
+	    fi
+	fi
+   done
+}
+
 display_menu()
 {
 while [[ "$menu_choice" != "X" || "$menu_choice" != "x" ]]; do
   printf "1: Sync local tree\n"
   printf "2: Push local changes\n"
   printf "3: Pull device trees\n"
+  printf "4: Submit gerrit patch\n"
   printf "X: Type X to exit\n"
-  printf "What would you like to do? [1-3]:\n"
+  printf "What would you like to do? [1-4]:\n"
   shopt -s nocasematch
   read menu_choice
   if [[ "$menu_choice" == "1" ]]
@@ -193,6 +241,9 @@ while [[ "$menu_choice" != "X" || "$menu_choice" != "x" ]]; do
   elif [[ "$menu_choice" == "3" ]]
   then
 	pull_selected_devices
+  elif [[ "$menu_choice" == "4" ]]
+  then
+	submit_gerrit_patch
   elif [[ "$menu_choice" == "X" || "$menu_choice" != "x" ]]
   then
 	exit
